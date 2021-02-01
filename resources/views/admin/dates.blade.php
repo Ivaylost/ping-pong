@@ -21,7 +21,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(count($dates) > 0)
+                                @if(count($dates) > 0 && Auth::user()->role == 0 )
                                     @foreach($dates as $key => $date)
                                         <tr>
                                             <td><input type="checkbox" class="check-item" name="ids[]"
@@ -30,6 +30,19 @@
                                             <td class="title">
                                                 <p> {{ $key }}</p>
                                             </td>
+                                        </tr>
+                                    @endforeach
+                                @elseif(count($dates) > 0 && Auth::user()->role == 1)
+                                    @foreach($dates as $key => $date)
+                                        <tr>
+                                            @if(!$date)
+                                                <td><input type="checkbox" class="check-item" name="ids[]"
+                                                           value="{{$key}}">
+                                                </td>
+                                                <td class="title">
+                                                    <p> {{ $key }}</p>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
